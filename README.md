@@ -12,6 +12,6 @@ Pontos importantes a notar sobre este script:
 
 4°: Fiz 3 gráficos. 
 
-## O arquivo "relatorio_insights" foi feito com o uso do RMARKDOWN no Rstudio. Fiz upload do Script e do PDF.
+## O arquivo "relatorio_insights" foi feito com o uso do RMARKDOWN no Rstudio. Fiz upload do Script e do PDF(Veja esse).
 
 ## O arquivo consultas_sql tem as 2 tarefas da segunda parte do Teste (SQL).

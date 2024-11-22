@@ -1,10 +1,4 @@
-# Explicação sobre a estrutura do repositório e informações sobre os scripts.
-
-# Repositório
-
------
-
-# Scripts
+# Explicação sobre a estrutura do repositório e os scripts.
 
 ## O arquivo "Teste_Estagio_Estevam_R_Quod contem as tarefas 1 e 2 da Primeira parte do Teste (Programação em R). 
 

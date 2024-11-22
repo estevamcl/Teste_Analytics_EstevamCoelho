@@ -4,7 +4,7 @@
 
 Pontos importantes a notar sobre este script:
 
-1°:Utilizei várias funções do pacote dplyr do Tidyverse
+1°:Utilizei várias funções do pacote dplyr do Tidyverse e de alguns outros pacotes.
 
 2°: Criei a variável "Data" com uma tendência que vai aumentando com o passar dos meses.
 

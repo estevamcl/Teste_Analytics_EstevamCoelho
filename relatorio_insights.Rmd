@@ -1,0 +1,100 @@
+---
+title: "Relatorio de insights"
+author: "Estevam"
+date: "2024-11-21"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(scales)
+setwd("C:/Users/estevam1/Downloads")
+dados = read_csv("dados_clean.csv")
+
+dados = dados |> 
+  mutate(Total_Vendas = Quantidade*Preco)
+
+dados$Produto <- as.factor(dados$Produto)
+dados$Categoria <- as.factor(dados$Categoria)
+```
+
+
+Nas análises que foram realizadas, alguns padrões interessantes foram encontrados. 
+Na primeira parte, percebemos que o produto C, mesmo sendo muito mais caro do que os outros, apresentou um alto número de vendas. Como resultado, foi o produto que gerou o maior valor total de vendas (em reais). 
+
+
+
+```{r,echo = FALSE}
+
+
+ggplot(dados, aes(x = Produto, y = Total_Vendas, fill = Produto)) +
+  geom_bar(stat = "identity") + #gráfico de barras
+  labs(title = "Vendas Totais por Produto",x = "Produto", y = "Total de Vendas (em R$)") + #legendas
+  scale_y_continuous(labels = comma)+ #botando vírgula, com pacote scales, no Y.
+  theme_minimal()+
+  theme(legend.position = "none")#tirando a legenda!!
+```
+
+
+Além disso, notou-se que a categoria 2, que contém os produtos B e C, foi a que gerou o maior valor total de vendas(em Reais). 
+
+
+
+```{r,echo = FALSE}
+#2° Gráfico de barras de vendas totais por categoria!
+ggplot(dados, aes(x = Categoria, y = Total_Vendas, fill = Categoria)) +
+  geom_bar(stat = "identity")+ #gráfico de barras
+  theme_minimal()+              
+  labs(title = "Vendas Totais por Categoria",x = "Categoria",y = "Total de Vendas (em R$)") +#legendas!!
+   scale_y_continuous(labels = comma,limits = c(0,3000000))+#botando vírgula, com pacote scales, no Y.
+  theme(legend.position = "none")#tirando a legenda!!
+```
+
+
+O produto D foi o que mais se destacou em termos de quantidade de unidades vendidas.
+
+
+```{r,echo = FALSE}
+Vendas_T = dados |> 
+  group_by(Produto) |> 
+  summarise(Total_Quantidades = sum(Quantidade))
+#RESULTADOS:
+Vendas_T
+```
+
+
+Observando o gráfico de série temporal de vendas de 2023, percebe-se uma tendência crescente, com as vendas aumentando ao longo dos meses.
+
+
+```{r,echo = FALSE}
+dados |> 
+  ggplot(mapping = aes(x = Data, y = Quantidade)) +
+  geom_line()+#gráfico de linhas
+  labs(title = "Serie Temporal de Quantidade de Vendas (2023)",x = "Data",y = "Quantidade")+#legendas
+  scale_x_date(date_breaks = "3 months",date_labels = "%b")#ajustando legenda do "X".
+```
+
+
+Em relação às vendas de junho de 2023, o produto A apresentou o menor número de vendas em comparação aos demais.
+
+
+```{r,echo = FALSE}
+Vendas_T_Jun = dados |> 
+  filter(Data >= as.Date("2023-06-01") & Data <= as.Date("2023-06-30")) |> 
+  group_by(Produto) |> 
+  summarise(Total_Vendas = sum(Total_Vendas),
+            Total_Quantidades = sum(Quantidade)) |> 
+  arrange(Total_Vendas)
+#RESULTADOS:
+Vendas_T_Jun
+```
+
+
+
+Com base nesses insights, algumas ações podem ser sugeridas:
+  1°:Aumentar o foco no produto C. Como ele teve um ótimo desempenho,  campanhas de marketing ou de promoções poderiam impulsionar ainda mais as suas vendas.
+  
+  2°:Reavaliar a estratégia para o produto A. Como ele teve um baixo número de vendas, seria interessante analisar o que pode estar afetando suas vendas.
+  
+  3°:Seria interessante analisar o motivo do porque as vendas tendem a aumentar com o passar dos meses para, assim, implementar possíveis mudanças de preço em certos períodos. Com isso, essas ações poderiam ajudar a melhorar os resultados gerais.

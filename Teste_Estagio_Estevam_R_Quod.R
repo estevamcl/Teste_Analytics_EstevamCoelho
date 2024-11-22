@@ -1,6 +1,8 @@
 #Teste-Estágio-Analytics-QUOD
 #Estevam Coelho Lopes
 
+
+
 #############################################PARTE 1: Programação em R
 
 ############################ 1°: LIMPEZA E ANÁLISE DE DADOS DE VENDAS
@@ -9,6 +11,7 @@
 library(tidyverse)
 library(scales)
 library(lubridate)
+library(knitr)
 
 #Diretório
 setwd("C:/Users/estevam1/Downloads")
@@ -18,6 +21,7 @@ setwd("C:/Users/estevam1/Downloads")
 #semente
 set.seed(100)
 
+#120 datas de jan/2023 até dez/2023.
 #DATA
 seq_datas = seq.Date(from = as.Date("2023-01-01"), to = as.Date("2023-12-31"), by = "day")
 data = sample(seq_datas,size = 120,replace = T)
@@ -30,6 +34,7 @@ ID = seq(1,120)
 tipos_produtos = c("A","B","C","D")#4 produtos.
 #Criando amostra com 120 valores com os 4 produtos.
 produtos = sample(tipos_produtos,size = 120,replace = T)
+
 
 #OBS: Vamos manipular as quantidades para adicionar uma tendência que irá aumentar com o passar dos meses!
 
@@ -142,6 +147,7 @@ Vendas_T = dados |>
 Vendas_T
 
 
+
 #O Produto C teve o maior total de vendas = 2.046.000
 #O produto D vendeu a maior quantidade = 4.689
 unique(dados$Preco)
@@ -174,7 +180,6 @@ dados |>
   scale_x_date(date_breaks = "3 months",date_labels = "%b")#ajustando legenda do "X".
 
 
-dados
 ############## 2.1: Identificando padrões e insights!
 #A categoria 2 e o Produto C tem as maiores vendas totais.
 #Em relação a quantidade de vendas ao longo do tempo, observa-se uma tendência que aumenta ao longo dos meses.
@@ -182,8 +187,7 @@ dados
 #Salvando arquivo para sql:
 #write.csv(dados,"dados_sql.csv")
 
-install.packages('knitr')
-
+#Esta tabela foi para analisar as vendas/quantidades em JUNHO de 2023! É a mesma tarefa do SQL.
 #filtrando para o mês de junho:
 Vendas_T_Jun = dados |> 
   filter(Data >= as.Date("2023-06-01") & Data <= as.Date("2023-06-30")) |> 
